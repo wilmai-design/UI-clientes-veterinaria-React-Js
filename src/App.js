@@ -9,6 +9,21 @@ class App extends Component {
     citas: []
   }
 
+  // cuando la aplicacion carga
+  componentDidMount() {
+    const citasLS = localStorage.getItem('citas');
+    if(citasLS) {
+      this.setState({
+        citas : JSON.parse(citasLS)
+      })
+    }
+  }
+
+  // cuando eliminamos o agregamos una nueva cita
+  componentDidUpdate() {
+    localStorage.setItem('citas', JSON.stringify(this.state.citas));
+  }
+
   crearNuevaCita = datos => {
     // copiar el state actual
     const citas = [...this.state.citas, datos];
@@ -20,8 +35,18 @@ class App extends Component {
   }
 
   // elimina las citas del state
-  eliminaCita = id => {
+  eliminarCita = id => {
     // tomar una copia del state
+      const citasAcuales = [...this.state.citas];
+
+    // utilizar filter para sacar el elemento @id del arreglo
+      const citas = citasAcuales.filter(cita => cita.id !== id )
+
+    // actualizar el state
+      this.setState({
+        citas
+      })
+
   }
 
   render() {
@@ -41,7 +66,7 @@ class App extends Component {
           <div className="mt-5 col-md-10 mx-auto">
             <ListasCitas 
               citas= {this.state.citas}
-              eliminaCitaç= {this.eliminaCita}
+              eliminarCita= {this.eliminarCita}
             />
 
           </div>

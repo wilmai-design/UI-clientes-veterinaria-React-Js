@@ -12,10 +12,9 @@ const Cita = ({cita, eliminarCita}) => (
 
             <button 
                 className="btn btn-danger"
-                onClick={() => eliminarCita(cita.id)}
-            >
-            Borrar &times;</button>
-            
+                    onClick={() => eliminarCita(cita.id)}
+
+            >Borrar &times;</button>
         </div>
     </div>
 );
